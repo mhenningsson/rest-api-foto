@@ -1,7 +1,7 @@
 /**
  * Album Controller
  */
-
+const { validationResult, matchedData } = require('express-validator');
 const models = require('../models');
 
 // Show index of all albums
@@ -53,8 +53,20 @@ const show = async (req, res) => {
 const store = async (req, res) => {
 	const userId = req.user.data.id;
 
+	// Check if validation failed
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		res.status(422).send({ 
+			status: 'fail',
+			data: errors.array()
+		});
+		return;
+	}
+
+	const validData = matchedData(req);
+
 	const newAlbum = {
-		title: req.body.title,
+		title: validData.title,
 		user_id: userId
 	}
 

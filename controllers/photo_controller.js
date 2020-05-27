@@ -1,7 +1,7 @@
 /**
  * Photo Controller
  */
-
+const { validationResult, matchedData } = require('express-validator');
 const models = require('../models');
 
 // Show index of all photos
@@ -53,10 +53,22 @@ const show = async (req, res) => {
 const store = async (req, res) => {
 	const userId = req.user.data.id;
 
+	// Check if validation failed
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		res.status(422).send({ 
+			status: 'fail',
+			data: errors.array()
+		});
+		return;
+	}
+
+	const validData = matchedData(req);
+
 	const newPhoto = {
-		title: req.body.title,
-		url: req.body.url,
-		comment: req.body.comment,
+		title: validData.title,
+		url: validData.url,
+		comment: validData.comment,
 		user_id: userId
 	}
 
@@ -66,7 +78,7 @@ const store = async (req, res) => {
 
 		res.send({
 			status: 'success',
-			data: {newPhoto}
+			data: {photo}
 		})
 
 	} catch (error) {

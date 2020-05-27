@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const albumController = require('../controllers/albums_controller');
+const validationRules = require('../validation_rules/user');
 
 // Get all albums
 router.get('/', albumController.index);
@@ -9,7 +10,7 @@ router.get('/', albumController.index);
 router.get('/:albumId', albumController.show);
 
 // Store new album
-router.post('/', albumController.store);
+router.post('/', validationRules.createNewAlbumRules, albumController.store);
 
 // Delete specific album
 // router.delete('/:albumId', albumController.destroy);

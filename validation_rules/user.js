@@ -18,6 +18,18 @@ const createUserRules = [
 	body('last_name').trim().isLength({ min: 2 }).exists(),
 ];
 
+const createNewAlbumRules = [
+	body('title').trim().isLength({ min: 2 }).exists()
+];
+
+const createNewPhotoRules = [
+	body('title').trim().isLength({ min: 2 }).exists(),
+	body('url').trim().isLength({ min: 2 }).exists(),
+	body('comment').trim()
+];
+
 module.exports = {
 	createUserRules,
+	createNewAlbumRules,
+	createNewPhotoRules
 }

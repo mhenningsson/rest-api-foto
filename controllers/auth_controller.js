@@ -6,6 +6,23 @@ const { matchedData, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const models = require('../models');
 
+// Get token from HTTP headers
+const getTokenFromHeaders = (req) => {
+	// Check if auth header exists
+   if (!req.headers.authorization) {
+	   return false;
+   }
+
+   // Split authorization header into its pieces
+   const [authType, token] = req.headers.authorization.split(' ');
+
+   // Check that the Authorization type is Bearer
+   if (authType.toLowerCase() !== "bearer") {
+	   return false;
+   }
+   return token;
+}
+
 // Login user
 // POST /login
 const login = async (req, res) => {
@@ -38,5 +55,6 @@ const login = async (req, res) => {
 };
 
 module.exports = {
+	getTokenFromHeaders,
 	login,
 }

@@ -48,7 +48,38 @@ const show = async (req, res) => {
 	});
 };
 
+// Store new photo
+// POST /photos
+const store = async (req, res) => {
+	const userId = req.user.data.id;
+
+	const newPhoto = {
+		title: req.body.title,
+		url: req.body.url,
+		comment: req.body.comment,
+		user_id: userId
+	}
+
+	try {
+		const photo = await models.Photo.forge(newPhoto).save();
+		console.log('Successfully created new photo: ', photo);
+
+		res.send({
+			status: 'success',
+			data: {newPhoto}
+		})
+
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Sorry, something went wrong while trying to store new photo.'
+		});
+		throw error;
+	}
+}
+
 module.exports = {
 	index,
 	show,
+	store,
 }

@@ -9,7 +9,7 @@ router.get('/', albumController.index);
 router.get('/:albumId', albumController.show);
 
 // Store new album
-// router.post('/', albumController.store);
+router.post('/', albumController.store);
 
 // Delete specific album
 // router.delete('/:albumId', albumController.destroy);

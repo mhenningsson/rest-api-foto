@@ -48,7 +48,36 @@ const show = async (req, res) => {
 	});
 };
 
+// Store new album
+// POST /album
+const store = async (req, res) => {
+	const userId = req.user.data.id;
+
+	const newAlbum = {
+		title: req.body.title,
+		user_id: userId
+	}
+
+	try {
+		const album = await models.Album.forge(newAlbum).save();
+		console.log('Successfully created new album: ', album);
+
+		res.send({
+			status: 'success',
+			data: {album}
+		})
+
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Sorry, something went wrong while trying to store new album.'
+		});
+		throw error;
+	}
+}
+
 module.exports = {
 	index,
 	show,
+	store,
 }

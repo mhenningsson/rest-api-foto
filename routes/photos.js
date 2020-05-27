@@ -9,7 +9,7 @@ router.get('/', photoController.index);
 router.get('/:photoId', photoController.show);
 
 // Store new photo
-// router.post('/', photoController.store);
+router.post('/', photoController.store);
 
 // Delete specific photo
 // router.delete('/:photoId', photoController.destroy);

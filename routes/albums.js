@@ -1,20 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const albumController = require('../controllers/albums_controller');
 
 // Get all albums
-router.get('/', (req, res) => {
-	res.send({data: 'albums'})
-})
+router.get('/', albumController.index);
 
 // Get specific album
-router.get('/:albumId', (req, res) => {
-	res.send({data: 'album', id: req.params.albumId})
-})
+router.get('/:albumId', albumController.show);
 
 // Store new album
-router.post('/')
+// router.post('/', albumController.store);
 
 // Delete specific album
-router.delete('/:albumId')
+// router.delete('/:albumId', albumController.destroy);
 
 module.exports = router;

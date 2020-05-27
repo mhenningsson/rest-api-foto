@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../controllers/middleware/auth');
 const authController = require('../controllers/auth_controller');
+const validationRules = require('../validation_rules/user');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -12,7 +13,7 @@ router.get('/', (req, res, next) => {
 router.post('/login', authController.login);
 
 // Ability to register new user
-router.post('/register', authController.register);
+router.post('/register', [validationRules.createUserRules], authController.register);
 
 // Routes
 router.use('/albums', [auth.validateJwtToken], require('./albums'));

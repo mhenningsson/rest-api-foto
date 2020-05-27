@@ -54,7 +54,50 @@ const login = async (req, res) => {
 	});
 };
 
+// Register account
+// POST /register
+const register = async (req, res) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		res.status(422).send({
+			status: 'fail',
+			data: errors.array()
+		});
+		return;
+	}
+
+	const validData = matchedData(req);
+
+	// Hashing password
+	try {
+		validData.password = await bcrypt.hash(validData.password, models.User.hashSaltRounds);
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Error when trying to hash password'
+		});
+	};
+
+	// Saving new user
+	try {
+		const user = await models.User.forge(validData).save();
+		console.log('Successfully created new user: ', user);
+
+		res.status(201).send({
+			status: 'success',
+			data: user
+		})
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Something went wrong while trying to register new user.'
+		});
+		throw error;
+	}
+}
+
 module.exports = {
 	getTokenFromHeaders,
 	login,
+	register,
 }

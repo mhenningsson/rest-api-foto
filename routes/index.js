@@ -7,10 +7,14 @@ router.get('/', (req, res, next) => {
 });
 
 // Ability to login
-router.post('/login')
+router.post('/login', (req, res) => {
+	res.send({data: 'login'})
+})
 
 // Ability to register new user
-router.post('/register');
+router.post('/register', (req, res) => {
+	res.send({data: 'register'})
+});
 
 // Routes
 router.use('/albums', require('./albums'));

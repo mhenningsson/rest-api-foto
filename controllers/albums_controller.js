@@ -49,7 +49,7 @@ const show = async (req, res) => {
 };
 
 // Store new album
-// POST /album
+// POST /albums
 const store = async (req, res) => {
 	const userId = req.user.data.id;
 
@@ -88,8 +88,54 @@ const store = async (req, res) => {
 	}
 }
 
+// Update albums attribute
+// PUT /albums/:albumId
+const update = async (req, res) => {
+	const userId = req.user.data.id;
+
+	// Query db for album
+	let albumDb = null;
+	try {
+		albumDb = await new models.Album({ id: req.params.albumId}).where({ 'user_id': userId }).fetch();
+	} catch (error) {
+		console.error(error)
+		res.sendStatus(404);
+		return;
+	}
+
+	// Check if validation failed
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		res.status(422).send({ 
+			status: 'fail',
+			data: errors.array()
+		});
+		return;
+	}
+
+	const validData = matchedData(req);
+
+	try {
+		const album = await albumDb.save(validData);
+		console.log('Successfully updated album: ', album);
+
+		res.send({
+			status: 'success',
+			data: {album}
+		})
+
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Sorry, something went wrong while trying to store new album.'
+		});
+		throw error;
+	}
+}
+
 module.exports = {
 	index,
 	show,
 	store,
+	update,
 }

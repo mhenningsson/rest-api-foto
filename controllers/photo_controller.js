@@ -90,8 +90,54 @@ const store = async (req, res) => {
 	}
 }
 
+// Update photos attribute
+// PUT /photos/:photoId
+const update = async (req, res) => {
+	const userId = req.user.data.id;
+
+	// Query db for album
+	let photoDb = null;
+	try {
+		photoDb = await new models.Photo({ id: req.params.photoId}).where({ 'user_id': userId }).fetch();
+	} catch (error) {
+		console.error(error)
+		res.sendStatus(404);
+		return;
+	}
+
+	// Check if validation failed
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		res.status(422).send({ 
+			status: 'fail',
+			data: errors.array()
+		});
+		return;
+	}
+
+	const validData = matchedData(req);
+
+	try {
+		const photo = await photoDb.save(validData);
+		console.log('Successfully updated photo: ', photo);
+
+		res.send({
+			status: 'success',
+			data: {photo}
+		})
+
+	} catch (error) {
+		res.status(500).send({
+			status: 'error',
+			message: 'Sorry, something went wrong while trying to update photo.'
+		});
+		throw error;
+	}
+}
+
 module.exports = {
 	index,
 	show,
 	store,
+	update,
 }

@@ -12,6 +12,9 @@ router.get('/:photoId', photoController.show);
 // Store new photo
 router.post('/', validationRules.createNewPhotoRules, photoController.store);
 
+// Update photo
+router.put('/:photoId', validationRules.updatePhotoRules,  photoController.update);
+
 // Delete specific photo
 // router.delete('/:photoId', photoController.destroy);
 

@@ -44,10 +44,16 @@ const updatePhotoRules = [
 	body('comment').optional().trim()
 ]
 
+// Rules when adding photo to album
+const addPhotoToAlbumRules = [
+	body('photo_id').custom(value => new models.Photo({ id: value }).fetch())
+ ];
+
 module.exports = {
 	createUserRules,
 	createNewAlbumRules,
 	createNewPhotoRules,
 	updateAlbumRules,
-	updatePhotoRules
+	updatePhotoRules,
+	addPhotoToAlbumRules
 }

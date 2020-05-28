@@ -133,9 +133,47 @@ const update = async (req, res) => {
 	}
 }
 
+// Add photo to album
+// POST /albums/:albumId/photos
+const addPhoto = async (req, res) => {
+	// Check if validation failed
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		res.status(422).send({ 
+			status: 'fail',
+			data: errors.array()
+		});
+		return;
+	}
+
+	let photoId = req.body.photo_id;
+
+	// Get photo and album for specific user and add photo to album
+	try {
+		const photo = await new models.Photo({ id: photoId }).where({'user_id': req.user.data.id }).fetch();
+
+		const album = await new models.Album({ id: req.params.albumId }).where({ 'user_id': req.user.data.id }).fetch();
+
+		const result = await album.photos().attach(photo);
+
+		res.status(201).send({
+			status: 'success',
+			data: result,
+		});
+
+	} catch (error) {
+		res.status(500).send({
+			status: 'error', 
+			data: 'Error when trying to add photo to album.'
+		});
+		throw error;
+	}
+}
+
 module.exports = {
 	index,
 	show,
 	store,
 	update,
+	addPhoto
 }

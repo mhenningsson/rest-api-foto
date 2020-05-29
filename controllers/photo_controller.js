@@ -7,11 +7,9 @@ const models = require('../models');
 // Show index of all photos
 // GET /photos
 const index = async (req, res) => {
-	const userId = req.user.data.id;
-
 	let photos = null;
 	try {
-		photos = await models.Photo.where('user_id', userId).fetchAll();
+		photos = await models.Photo.where('user_id', req.user.data.id).fetchAll();
 	} catch (error) {
 		console.error(error)
 		res.sendStatus(404);
@@ -29,11 +27,9 @@ const index = async (req, res) => {
 // Show specific photo
 // GET /photos/:photoId
 const show = async (req, res) => {
-	const userId = req.user.data.id;
-
 	let photo = null;
 	try {
-		photo = await new models.Photo({ id: req.params.photoId }).where('user_id', userId).fetch({ withRelated: 'albums' });
+		photo = await new models.Photo({ id: req.params.photoId }).where('user_id', req.user.data.id).fetch({ withRelated: 'albums' });
 	} catch (error) {
 		console.error(error)
 		res.sendStatus(404);
@@ -51,8 +47,6 @@ const show = async (req, res) => {
 // Store new photo
 // POST /photos
 const store = async (req, res) => {
-	const userId = req.user.data.id;
-
 	// Check if validation failed
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
@@ -69,7 +63,7 @@ const store = async (req, res) => {
 		title: validData.title,
 		url: validData.url,
 		comment: validData.comment,
-		user_id: userId
+		user_id: req.user.data.id
 	}
 
 	try {
@@ -93,12 +87,10 @@ const store = async (req, res) => {
 // Update photos attribute
 // PUT /photos/:photoId
 const update = async (req, res) => {
-	const userId = req.user.data.id;
-
-	// Query db for album
+	// Query db for photo
 	let photoDb = null;
 	try {
-		photoDb = await new models.Photo({ id: req.params.photoId}).where({ 'user_id': userId }).fetch();
+		photoDb = await new models.Photo({ id: req.params.photoId}).where({ 'user_id': req.user.data.id }).fetch();
 	} catch (error) {
 		console.error(error)
 		res.sendStatus(404);
@@ -135,9 +127,36 @@ const update = async (req, res) => {
 	}
 }
 
+// Delete a photo
+// DELETE /photos/:photoId
+const destroy = async (req, res) => {
+		try {
+			const photo = await new models.Photo({ id: req.params.photoId}).where({ 'user_id': req.user.data.id }).fetch({ withRelated: 'albums'});
+
+			// detach photos from assocciated albums
+			photo.albums().detach();
+			
+			// delete photo from db
+			photo.destroy();
+
+			res.status(204).send({
+				status: 'success',
+				data: 'Photo deleted successfully.'
+			})
+
+		} catch (error) {
+			res.status(500).send({
+				status: 'error', 
+				data: 'Error when trying to delete photo.'
+			});
+			throw error;
+		}
+}
+
 module.exports = {
 	index,
 	show,
 	store,
 	update,
+	destroy
 }

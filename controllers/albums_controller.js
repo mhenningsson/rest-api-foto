@@ -170,10 +170,37 @@ const addPhoto = async (req, res) => {
 	}
 }
 
+// Delete an album
+// DELETE /albums/:albumId
+const destroy = async (req, res) => {
+	try {
+		const album = await new models.Album({ id: req.params.albumId}).where({ 'user_id': req.user.data.id }).fetch({ withRelated: 'photos'});
+
+		// detach album from assocciated photos
+		album.photos().detach();
+		
+		// delete album from db
+		album.destroy();
+
+		res.status(200).send({
+			status: 'success',
+			data: 'Album deleted successfully.'
+		})
+
+	} catch (error) {
+		res.status(500).send({
+			status: 'error', 
+			data: 'Error when trying to delete album.'
+		});
+		throw error;
+	}
+}
+
 module.exports = {
 	index,
 	show,
 	store,
 	update,
-	addPhoto
+	addPhoto,
+	destroy
 }

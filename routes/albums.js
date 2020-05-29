@@ -19,6 +19,6 @@ router.put('/:albumId', validationRules.updateAlbumRules, albumController.update
 router.post('/:albumId/photos', validationRules.addPhotoToAlbumRules, albumController.addPhoto);
 
 // Delete specific album
-// router.delete('/:albumId', albumController.destroy);
+router.delete('/:albumId', albumController.destroy);
 
 module.exports = router;

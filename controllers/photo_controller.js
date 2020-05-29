@@ -11,12 +11,14 @@ const index = async (req, res) => {
 	try {
 		photos = await models.Photo.where('user_id', req.user.data.id).fetchAll();
 	} catch (error) {
-		console.error(error)
-		res.sendStatus(404);
+		res.status(404).send({
+			status: 'fail',
+			data: 'Sorry, could not find any photos for this user.'
+		});
 		return;
 	}
 
-	res.send({
+	res.status(200).send({
 		status: 'success',
 		data: {
 			photos,
@@ -31,12 +33,14 @@ const show = async (req, res) => {
 	try {
 		photo = await new models.Photo({ id: req.params.photoId }).where('user_id', req.user.data.id).fetch({ withRelated: 'albums' });
 	} catch (error) {
-		console.error(error)
-		res.sendStatus(404);
+		res.status(404).send({
+			status: 'fail',
+			data: 'Sorry, could not find photo for this user.'
+		});
 		return;
 	}
 
-	res.send({
+	res.status(200).send({
 		status: 'success',
 		data: {
 			photo,
@@ -47,7 +51,6 @@ const show = async (req, res) => {
 // Store new photo
 // POST /photos
 const store = async (req, res) => {
-	// Check if validation failed
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		res.status(422).send({ 
@@ -68,9 +71,8 @@ const store = async (req, res) => {
 
 	try {
 		const photo = await models.Photo.forge(newPhoto).save();
-		console.log('Successfully created new photo: ', photo);
 
-		res.send({
+		res.status(200).send({
 			status: 'success',
 			data: {photo}
 		})
@@ -78,7 +80,7 @@ const store = async (req, res) => {
 	} catch (error) {
 		res.status(500).send({
 			status: 'error',
-			message: 'Sorry, something went wrong while trying to store new photo.'
+			message: 'Error when trying to store new photo.'
 		});
 		throw error;
 	}
@@ -87,13 +89,14 @@ const store = async (req, res) => {
 // Update photos attribute
 // PUT /photos/:photoId
 const update = async (req, res) => {
-	// Query db for photo
 	let photoDb = null;
 	try {
 		photoDb = await new models.Photo({ id: req.params.photoId}).where({ 'user_id': req.user.data.id }).fetch();
 	} catch (error) {
-		console.error(error)
-		res.sendStatus(404);
+		res.status(404).send({
+			status: 'fail',
+			data: 'Sorry, could not find photo for this user.'
+		});
 		return;
 	}
 
@@ -111,9 +114,8 @@ const update = async (req, res) => {
 
 	try {
 		const photo = await photoDb.save(validData);
-		console.log('Successfully updated photo: ', photo);
 
-		res.send({
+		res.status(200).send({
 			status: 'success',
 			data: {photo}
 		})
@@ -121,7 +123,7 @@ const update = async (req, res) => {
 	} catch (error) {
 		res.status(500).send({
 			status: 'error',
-			message: 'Sorry, something went wrong while trying to update photo.'
+			message: 'Error when trying to update photo.'
 		});
 		throw error;
 	}
@@ -133,15 +135,13 @@ const destroy = async (req, res) => {
 		try {
 			const photo = await new models.Photo({ id: req.params.photoId}).where({ 'user_id': req.user.data.id }).fetch({ withRelated: 'albums'});
 
-			// detach photos from assocciated albums
 			photo.albums().detach();
 			
-			// delete photo from db
 			photo.destroy();
 
-			res.status(204).send({
+			res.status(200).send({
 				status: 'success',
-				data: 'Photo deleted successfully.'
+				data: 'Photo successfully deleted.'
 			})
 
 		} catch (error) {

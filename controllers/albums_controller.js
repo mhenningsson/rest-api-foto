@@ -7,18 +7,18 @@ const models = require('../models');
 // Show index of all albums
 // GET /albums
 const index = async (req, res) => {
-	const userId = req.user.data.id;
-
 	let albums = null;
 	try {
-		albums = await models.Album.where('user_id', userId).fetchAll();
+		albums = await models.Album.where('user_id', req.user.data.id).fetchAll();
 	} catch (error) {
-		console.error(error)
-		res.sendStatus(404);
+		res.status(404).send({
+			status: 'fail',
+			data: 'Sorry, could not find any albums for this user.'
+		});
 		return;
 	}
 
-	res.send({
+	res.status(200).send({
 		status: 'success',
 		data: {
 			albums,
@@ -29,18 +29,18 @@ const index = async (req, res) => {
 // Show specific album
 // GET /albums/:albumId
 const show = async (req, res) => {
-	const userId = req.user.data.id;
-
 	let album = null;
 	try {
-		album = await new models.Album({ id: req.params.albumId }).where('user_id', userId).fetch({ withRelated: 'photos' });
+		album = await new models.Album({ id: req.params.albumId }).where('user_id', req.user.data.id).fetch({ withRelated: 'photos' });
 	} catch (error) {
-		console.error(error)
-		res.sendStatus(404);
+		res.status(404).send({
+			status: 'fail',
+			data: 'Sorry, could not find album for this user.'
+		});
 		return;
 	}
 
-	res.send({
+	res.status(200).send({
 		status: 'success',
 		data: {
 			album,
@@ -51,9 +51,6 @@ const show = async (req, res) => {
 // Store new album
 // POST /albums
 const store = async (req, res) => {
-	const userId = req.user.data.id;
-
-	// Check if validation failed
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		res.status(422).send({ 
@@ -67,14 +64,13 @@ const store = async (req, res) => {
 
 	const newAlbum = {
 		title: validData.title,
-		user_id: userId
+		user_id: req.user.data.id,
 	}
 
 	try {
 		const album = await models.Album.forge(newAlbum).save();
-		console.log('Successfully created new album: ', album);
 
-		res.send({
+		res.status(200).send({
 			status: 'success',
 			data: {album}
 		})
@@ -82,7 +78,7 @@ const store = async (req, res) => {
 	} catch (error) {
 		res.status(500).send({
 			status: 'error',
-			message: 'Sorry, something went wrong while trying to store new album.'
+			message: 'Error when trying to store new album.'
 		});
 		throw error;
 	}
@@ -91,19 +87,17 @@ const store = async (req, res) => {
 // Update albums attribute
 // PUT /albums/:albumId
 const update = async (req, res) => {
-	const userId = req.user.data.id;
-
-	// Query db for album
 	let albumDb = null;
 	try {
-		albumDb = await new models.Album({ id: req.params.albumId}).where({ 'user_id': userId }).fetch();
+		albumDb = await new models.Album({ id: req.params.albumId}).where({ 'user_id': req.user.data.id }).fetch();
 	} catch (error) {
-		console.error(error)
-		res.sendStatus(404);
+		res.status(404).send({
+			status: 'fail',
+			data: 'Sorry, could not find album for user.'
+		});
 		return;
 	}
 
-	// Check if validation failed
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		res.status(422).send({ 
@@ -117,9 +111,8 @@ const update = async (req, res) => {
 
 	try {
 		const album = await albumDb.save(validData);
-		console.log('Successfully updated album: ', album);
 
-		res.send({
+		res.status(200).send({
 			status: 'success',
 			data: {album}
 		})
@@ -127,7 +120,7 @@ const update = async (req, res) => {
 	} catch (error) {
 		res.status(500).send({
 			status: 'error',
-			message: 'Sorry, something went wrong while trying to store new album.'
+			message: 'Error when trying to store new album.'
 		});
 		throw error;
 	}
@@ -136,7 +129,6 @@ const update = async (req, res) => {
 // Add photo to album
 // POST /albums/:albumId/photos
 const addPhoto = async (req, res) => {
-	// Check if validation failed
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		res.status(422).send({ 
@@ -146,11 +138,8 @@ const addPhoto = async (req, res) => {
 		return;
 	}
 
-	let photoId = req.body.photo_id;
-
-	// Get photo and album for specific user and add photo to album
 	try {
-		const photo = await new models.Photo({ id: photoId }).where({'user_id': req.user.data.id }).fetch();
+		const photo = await new models.Photo({ id: req.body.photo_id }).where({'user_id': req.user.data.id }).fetch();
 
 		const album = await new models.Album({ id: req.params.albumId }).where({ 'user_id': req.user.data.id }).fetch();
 
@@ -176,15 +165,13 @@ const destroy = async (req, res) => {
 	try {
 		const album = await new models.Album({ id: req.params.albumId}).where({ 'user_id': req.user.data.id }).fetch({ withRelated: 'photos'});
 
-		// detach album from assocciated photos
 		album.photos().detach();
 		
-		// delete album from db
 		album.destroy();
 
 		res.status(200).send({
 			status: 'success',
-			data: 'Album deleted successfully.'
+			data: 'Album successfully deleted.'
 		})
 
 	} catch (error) {

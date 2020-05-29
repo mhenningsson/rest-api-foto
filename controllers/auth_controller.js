@@ -16,12 +16,12 @@ const getTokenFromHeaders = (req) => {
    // Split authorization header into its pieces
    const [authType, token] = req.headers.authorization.split(' ');
 
-   // Check that the Authorization type is Bearer
+   // Check that the authType is Bearer
    if (authType.toLowerCase() !== "bearer") {
 	   return false;
    }
    return token;
-}
+};
 
 // Login user
 // POST /login
@@ -90,7 +90,7 @@ const register = async (req, res) => {
 	} catch (error) {
 		res.status(500).send({
 			status: 'error',
-			message: 'Something went wrong while trying to register new user.'
+			message: 'Error when trying to register new user.'
 		});
 		throw error;
 	}

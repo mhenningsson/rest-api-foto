@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const albumController = require('../controllers/albums_controller');
-const validationRules = require('../validation_rules/user');
+const validationRules = require('../validation_rules/albums');
 
 // Get all albums
 router.get('/', albumController.index);

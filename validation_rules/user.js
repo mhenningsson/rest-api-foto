@@ -19,41 +19,6 @@ const createUserRules = [
 	body('last_name').trim().isLength({ min: 2 }).exists(),
 ];
 
-
-// Rules when creating new album
-const createNewAlbumRules = [
-	body('title').trim().isLength({ min: 2 }).exists()
-];
-
-
-// Rules when creating new photo
-const createNewPhotoRules = [
-	body('title').trim().isLength({ min: 2 }).exists(),
-	body('url').trim().isLength({ min: 2 }).exists(),
-	body('comment').trim()
-];
-
-// Rules when updating album
-const updateAlbumRules = [
-	body('title').trim().isLength({ min: 2 }).exists()
-];
-
-// Rules when updating photo
-const updatePhotoRules = [
-	body('title').optional().trim().isLength({ min: 2 }),
-	body('comment').optional().trim()
-]
-
-// Rules when adding photo to album
-const addPhotoToAlbumRules = [
-	body('photo_id').custom(value => new models.Photo({ id: value }).fetch())
- ];
-
 module.exports = {
-	createUserRules,
-	createNewAlbumRules,
-	createNewPhotoRules,
-	updateAlbumRules,
-	updatePhotoRules,
-	addPhotoToAlbumRules
+	createUserRules
 }

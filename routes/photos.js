@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const photoController = require('../controllers/photo_controller');
-const validationRules = require('../validation_rules/user');
+const validationRules = require('../validation_rules/photos');
 
 // Get all photos
 router.get('/', photoController.index);

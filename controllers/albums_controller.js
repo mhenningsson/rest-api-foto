@@ -181,6 +181,30 @@ const destroy = async (req, res) => {
 		});
 		throw error;
 	}
+};
+
+// Remove photo from album
+// DELETE /albums/:albumId/photos/:photoId
+const removePhoto = async (req, res) => {
+	try {
+		const photo = await new models.Photo({ id: req.params.photoId }).where({'user_id': req.user.data.id }).fetch({ withRelated: 'albums'});
+
+		const album = await new models.Album({ id: req.params.albumId }).where({ 'user_id': req.user.data.id }).fetch({ withRelated: 'photos' });
+
+		album.photos().detach(photo);
+
+		res.status(200).send({
+			status: 'success',
+			data: 'Photo successfully removed from album.',
+		});
+
+	} catch (error) {
+		res.status(500).send({
+			status: 'error', 
+			data: 'Error when trying to remove photo from album.'
+		});
+		throw error;
+	}
 }
 
 module.exports = {
@@ -189,5 +213,6 @@ module.exports = {
 	store,
 	update,
 	addPhoto,
-	destroy
+	destroy,
+	removePhoto
 }

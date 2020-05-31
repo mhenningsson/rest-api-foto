@@ -16,7 +16,19 @@ const updateAlbumRules = [
 
 // Rules when adding photo to album
 const addPhotoToAlbumRules = [
-	body('photo_id').custom(value => new models.Photo({ id: value }).fetch())
+	body('photo_id').isArray().custom(async (values, {req}) => {
+		if (!values.every(Number.isInteger)) {
+			return Promise.reject('Invalid value in array.');
+		}
+	
+		for (let i = 0; i < values.length; i++) {
+			const photo = await new models.Photo({ id: values[i] }).where({ 'user_id': req.user.data.id }).fetch();
+	
+			if (!photo) {
+				return Promise.reject(`Photo ${values[i]} does not exist.`)
+			}
+		}
+	})
  ];
 
 module.exports = {

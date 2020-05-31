@@ -138,16 +138,21 @@ const addPhoto = async (req, res) => {
 		return;
 	}
 
+	const validData = matchedData(req);
+
+	let photoIds = false;
+	if (validData.photo_id) {
+		photoIds = validData.photo_id
+	}
+	
 	try {
-		const photo = await new models.Photo({ id: req.body.photo_id }).where({'user_id': req.user.data.id }).fetch();
+			const album = await new models.Album({ id: req.params.albumId }).where({ 'user_id': req.user.data.id }).fetch();
 
-		const album = await new models.Album({ id: req.params.albumId }).where({ 'user_id': req.user.data.id }).fetch();
-
-		const result = await album.photos().attach(photo);
+			const result = await album.photos().attach(photoIds);
 
 		res.status(201).send({
 			status: 'success',
-			data: result,
+			data: [...result]
 		});
 
 	} catch (error) {

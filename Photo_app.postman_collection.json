@@ -1,0 +1,1010 @@
+{
+	"info": {
+		"_postman_id": "3400e545-1d27-408a-93dc-6bc514f732c7",
+		"name": "Photo app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Photos",
+			"item": [
+				{
+					"name": "GET/photos (Lisas)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Lisas_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/photos",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/photos (Majkens)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Majkens_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/photos",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/photos/:photoId (Lisas)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Lisas_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/photos/3",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"photos",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/photos/:photoId (Majken)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Majkens_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/photos/6",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"photos",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT/photos/:photoId (Lisa)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Lisas_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"comment\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/photos/1",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"photos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT/photos:photoId (Majken)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Majkens_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"comment\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/photos/10",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"photos",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/photos (Lisa)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Lisas_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Airplane\",\n\t\"url\": \"https://images.unsplash.com/photo-1500835556837-99ac94a94552?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80\",\n\t\"comment\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/photos",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/photos (Majken)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Majkens_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Pancakes\",\n\t\"url\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoyLCJlbWFpbCI6Im1hamtlbkBob3RtYWlsLnNlIn0sImlhdCI6MTU5MTAxMTgwOCwiZXhwIjoxNTkxMDk4MjA4fQ.SWxV9NckA3WQX8_J92mg4VcwwMLFmAfO1hZTYdEuQnA\",\n\t\"comment\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/photos",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE/photos/:photoId (Lisa)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Lisas_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/photos/11",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"photos",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE/photos/:photoId (Majken)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Majkens_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/photos/17",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"photos",
+								"17"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Albums",
+			"item": [
+				{
+					"name": "GET/albums (Lisa)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Lisas_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/albums",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/albums (Majken)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Majkens_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/albums",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/albums/:albumId (Lisa)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Lisas_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/albums/1",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET/albums/:albumId (Majken)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Majkens_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/albums/4",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT/albums/:albumId (Lisa)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Lisas_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Travels\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/albums/1",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT/albums/:albumId (Majken)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Majkens_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Nature and stuff\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/albums/4",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/albums (Lisa)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Lisas_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Baking and stuff\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/albums",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/albums (Majken)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Majkens_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Interior design\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/albums",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/albums/:albumId/photos (Lisa)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Lisas_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"photo_ids\": [11]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/albums/1/photos",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums",
+								"1",
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/albums/:albumId/photos (Majken)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Majkens_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"photo_ids\": [6, 7]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/albums/4/photos",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums",
+								"4",
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE/albums/:albumId (Majken)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Majkens_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/albums/12",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE/albums/:albumId (Lisa)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Lisas_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"Decoration\",\n\t\"user_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/albums/21",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums",
+								"21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE/albums/:albumId/photos/:photoId (Lisa)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Lisas_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/albums/2/photos/2",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums",
+								"2",
+								"photos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE/albums/:albumId/photos/:photoId (Majken)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Majkens_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/albums/4/photos/7",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums",
+								"4",
+								"photos",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "POST/login (Majken)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"majken@hotmail.se\",\n\t\"password\": \"lillekatt\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/login",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/login (Lisa)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"lisa@gmail.com\",\n\t\"password\": \"lisasfoton\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/login",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"test@hotmail.se\",\n\t\"password\": \"testar123\",\n\t\"first_name\": \"Test\",\n\t\"last_name\": \"Testsson\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fed19-malinhenningsson-photo.herokuapp.com/register",
+							"protocol": "https",
+							"host": [
+								"fed19-malinhenningsson-photo",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

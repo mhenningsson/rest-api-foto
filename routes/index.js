@@ -6,7 +6,7 @@ const validationRules = require('../validation_rules/user');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-	res.send({status: 'Hello there from index.js!'});
+	res.send({status: 'Hello! You need to login or register a new user.'});
 });
 
 // Ability to login

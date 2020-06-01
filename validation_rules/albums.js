@@ -16,7 +16,7 @@ const updateAlbumRules = [
 
 // Rules when adding photo to album
 const addPhotoToAlbumRules = [
-	body('photo_id').isArray().custom(async (values, {req}) => {
+	body('photo_ids').isArray().custom(async (values, {req}) => {
 		if (!values.every(Number.isInteger)) {
 			return Promise.reject('Invalid value in array.');
 		}

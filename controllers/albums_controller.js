@@ -141,8 +141,8 @@ const addPhoto = async (req, res) => {
 	const validData = matchedData(req);
 
 	let photoIds = false;
-	if (validData.photo_id) {
-		photoIds = validData.photo_id
+	if (validData.photo_ids) {
+		photoIds = validData.photo_ids
 	}
 	
 	try {
